@@ -1,0 +1,60 @@
+import math, sys, pygame, random
+from math import *
+from pygame import *
+
+class Node(object):
+    def _init_(self, point, parent):
+        super(Node, self)._init_()
+        self.point = point
+        self.parent = parent
+
+
+xdim = 720
+ydim = 500
+window_size = [xdim, ydim]
+delta = 10.0
+
+GAME_LEVEL = 1
+GOAL_RADIUS = 10
+MIN_DISTANCE_TO_ADD = 1.0
+NUMNODES = 5000
+
+pygame.init()
+fps_clock = pygame.time.Clock()
+screen = pygame.display.set_mode(window_size)
+
+white = 255, 255, 255
+black = 0, 0, 0
+red = 255, 0, 0
+blue = 0, 255, 1
+green = 0, 0, 255
+cyan = 0, 180, 105
+
+count = 0
+rect_obs = []
+
+# Compute distance between two points
+def dist(p1, p2):
+    return sqrt((p1[0]-p2[0]) * (p1[0]-p2[0]) \
+                + (p1[1]-p2[1]) * (p1[1]-p2[1]))
+
+# Check for collision with circle radius
+def point_circle_collision(p1, p2, radius):
+    distance = dist(p1, p2)
+    if(distance <= radius):
+        return True
+    return False
+
+# Check if points abide by step size constraint
+def step_from_to(p1, p2):
+    if dist(p1, p2) < delta:
+        return p2
+    else:
+        theta = atan2(p2[1]-p1[1], p2[0]-p1[0])
+        return p1[0] + delta * cos(theta), \
+            p1[1] + delta * sin(theta)
+    
+# Check if the newly generated point's path intersects an obstacle 
+def collides(p):
+    for rect in rect_obs
+    
